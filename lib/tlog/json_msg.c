@@ -172,8 +172,10 @@ tlog_json_msg_init(struct tlog_json_msg *msg, struct json_object *obj)
     if (str == NULL) {
         msg->time = TLOG_TIMESPEC_ZERO;
     } else {
-        rc = sscanf(str, "%ld.%03ld",
-                    &msg->time.tv_sec, &msg->time.tv_nsec);
+        long long tv_sec;
+
+        rc = sscanf(str, "%lld.%03ld", &tv_sec, &msg->time.tv_nsec);
+        msg->time.tv_sec = tv_sec;
         if (rc < 1) {
             return TLOG_RC_JSON_MSG_FIELD_INVALID_VALUE_TIME;
         }

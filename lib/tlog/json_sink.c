@@ -219,7 +219,7 @@ tlog_json_sink_flush(struct tlog_sink *sink)
             "\"session\":"  "%u,"
             "\"id\":"       "%zu,"
             "\"pos\":"      "%s,"
-            "\"time\":"     "%ld.%03ld,"
+            "\"time\":"     "%lld.%03ld,"
             "\"timing\":"   "\"%.*s\","
             "\"in_txt\":"   "\"%.*s\","
             "\"in_bin\":"   "[%.*s],"
@@ -233,7 +233,7 @@ tlog_json_sink_flush(struct tlog_sink *sink)
         json_sink->session_id,
         json_sink->message_id,
         pos_buf,
-        real_ts.tv_sec, real_ts.tv_nsec / 1000000,
+        (long long)real_ts.tv_sec, real_ts.tv_nsec / 1000000,
         (int)(json_sink->chunk.timing_ptr - json_sink->chunk.timing_buf),
         json_sink->chunk.timing_buf,
         (int)json_sink->chunk.input.txt_len, json_sink->chunk.input.txt_buf,
