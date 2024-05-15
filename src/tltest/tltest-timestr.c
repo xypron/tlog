@@ -119,17 +119,17 @@ main(void)
     TEST("10:10:10", true, TS(60*60*10 + 60*10 + 10, 0));
     TEST("10:10:10.10", true, TS(60*60*10 + 60*10 + 10, 100000000));
 
-    snprintf(buf, sizeof(buf), "%ld", LONG_MAX);
-    TEST(buf, true, TS(LONG_MAX, 0));
-    snprintf(buf, sizeof(buf), "%ld:", LONG_MAX);
+    snprintf(buf, sizeof(buf), "%lld", (long long)TLOG_TIME_T_MAX);
+    TEST(buf, true, TS(TLOG_TIME_T_MAX, 0));
+    snprintf(buf, sizeof(buf), "%lld:", (long long)TLOG_TIME_T_MAX);
     TEST(buf, false, TS(0, 0));
-    snprintf(buf, sizeof(buf), "%ld:", LONG_MAX / 60);
-    TEST(buf, true, TS(LONG_MAX / 60 * 60, 0));
-    snprintf(buf, sizeof(buf), "%ld:", LONG_MAX / 60 + 1);
+    snprintf(buf, sizeof(buf), "%lld:", (long long)TLOG_TIME_T_MAX / 60);
+    TEST(buf, true, TS(TLOG_TIME_T_MAX / 60 * 60, 0));
+    snprintf(buf, sizeof(buf), "%lld:", (long long)TLOG_TIME_T_MAX / 60 + 1);
     TEST(buf, false, TS(0, 0));
-    snprintf(buf, sizeof(buf), "%ld::", LONG_MAX / (60 * 60));
-    TEST(buf, true, TS(LONG_MAX / (60 * 60) * (60 * 60), 0));
-    snprintf(buf, sizeof(buf), "%ld::", LONG_MAX / (60 * 60) + 1);
+    snprintf(buf, sizeof(buf), "%lld::", (long long)TLOG_TIME_T_MAX / (60 * 60));
+    TEST(buf, true, TS(TLOG_TIME_T_MAX / (60 * 60) * (60 * 60), 0));
+    snprintf(buf, sizeof(buf), "%lld::", (long long)TLOG_TIME_T_MAX / (60 * 60) + 1);
     TEST(buf, false, TS(0, 0));
 
     TEST("999999999999999999999999999", false, TS(0, 0));

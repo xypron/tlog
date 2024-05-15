@@ -149,21 +149,21 @@ main(void)
     TEST(all_sub, TS(0, TLOG_TIMESPEC_NSEC_PER_SEC - 1), TS(0, -2), TS(1, 1));
     TEST(all_sub, TS(1, 500000000), TS(2, 0), TS(0, -500000000));
     TEST(all_sub, TS(-1, -500000000), TS(-2, 0), TS(0, 500000000));
-    TEST(int_sub, TS(0, 0), tlog_timespec_max, TS(LONG_MIN + 1, -TLOG_TIMESPEC_NSEC_PER_SEC + 1));
+    TEST(int_sub, TS(0, 0), tlog_timespec_max, TS(TLOG_TIME_T_MIN + 1, -TLOG_TIMESPEC_NSEC_PER_SEC + 1));
 
-    TEST(sub, tlog_timespec_min, TS(0, 1), TS(LONG_MAX, 0));
+    TEST(sub, tlog_timespec_min, TS(0, 1), TS(TLOG_TIME_T_MAX, 0));
     TEST(cap_sub, tlog_timespec_min, TS(0, 1), tlog_timespec_min);
     TEST(fp_sub, tlog_timespec_min, TS(0, 1), min_fp);
 
-    TEST(int_sub, TS(LONG_MIN / 2, -499999999),
-                  TS(LONG_MAX / 2 + 1, 500000000),
+    TEST(int_sub, TS(TLOG_TIME_T_MIN / 2, -499999999),
+                  TS(TLOG_TIME_T_MAX / 2 + 1, 500000000),
                   tlog_timespec_min);
-    TEST(fp_sub, TS(LONG_MIN / 2, -499999999),
-                 TS(LONG_MAX / 2 + 1, 500000000),
+    TEST(fp_sub, TS(TLOG_TIME_T_MIN / 2, -499999999),
+                 TS(TLOG_TIME_T_MAX / 2 + 1, 500000000),
                  min_fp);
-    TEST(int_sub, TS(LONG_MAX / 2, 499999999), TS(LONG_MIN / 2, -500000000),
+    TEST(int_sub, TS(TLOG_TIME_T_MAX / 2, 499999999), TS(TLOG_TIME_T_MIN / 2, -500000000),
                   tlog_timespec_max);
-    TEST(fp_sub, TS(LONG_MAX / 2, 499999999), TS(LONG_MIN / 2, -500000000),
+    TEST(fp_sub, TS(TLOG_TIME_T_MAX / 2, 499999999), TS(TLOG_TIME_T_MIN / 2, -500000000),
                  max_fp);
 
     TEST(cap_sub, tlog_timespec_min, tlog_timespec_max, tlog_timespec_min);
@@ -190,7 +190,7 @@ main(void)
     TEST(all_add, TS(0, TLOG_TIMESPEC_NSEC_PER_SEC - 1), TS(0, 0), TS(0, TLOG_TIMESPEC_NSEC_PER_SEC - 1));
     TEST(all_add, TS(0, TLOG_TIMESPEC_NSEC_PER_SEC - 1), TS(0, 1), TS(1, 0));
     TEST(all_add, TS(1, TLOG_TIMESPEC_NSEC_PER_SEC - 1), TS(0, 1), TS(2, 0));
-    TEST(add, tlog_timespec_max, TS(0, 1), TS(LONG_MIN, 0));
+    TEST(add, tlog_timespec_max, TS(0, 1), TS(TLOG_TIME_T_MIN, 0));
     TEST(cap_add, tlog_timespec_max, TS(0, 1), tlog_timespec_max);
     TEST(fp_add, tlog_timespec_max, TS(0, 1), max_fp);
     TEST(all_add, TS(0, -1), TS(0, 1), TS(0, 0));
@@ -206,24 +206,24 @@ main(void)
     TEST(all_add, TS(-1, -500000000), TS(2, 0), TS(0, 500000000));
     TEST(all_add, TS(1, 500000000), TS(-2, 0), TS(0, -500000000));
 
-    TEST(int_add, TS(LONG_MAX / 2, 499999999),
-                  TS(LONG_MAX / 2 + 1, 500000000),
+    TEST(int_add, TS(TLOG_TIME_T_MAX / 2, 499999999),
+                  TS(TLOG_TIME_T_MAX / 2 + 1, 500000000),
                   tlog_timespec_max);
-    TEST(fp_add, TS(LONG_MAX / 2, 499999999),
-                 TS(LONG_MAX / 2 + 1, 500000000),
+    TEST(fp_add, TS(TLOG_TIME_T_MAX / 2, 499999999),
+                 TS(TLOG_TIME_T_MAX / 2 + 1, 500000000),
                  max_fp);
-    TEST(int_add, TS(LONG_MIN / 2, -499999999),
-                  TS(LONG_MIN / 2, -500000000),
+    TEST(int_add, TS(TLOG_TIME_T_MIN / 2, -499999999),
+                  TS(TLOG_TIME_T_MIN / 2, -500000000),
                   tlog_timespec_min);
-    TEST(fp_add, TS(LONG_MIN / 2, -499999999),
-                 TS(LONG_MIN / 2, -500000000),
+    TEST(fp_add, TS(TLOG_TIME_T_MIN / 2, -499999999),
+                 TS(TLOG_TIME_T_MIN / 2, -500000000),
                  min_fp);
 
-    TEST(add, tlog_timespec_max, TS(0, 1), TS(LONG_MIN, 0));
+    TEST(add, tlog_timespec_max, TS(0, 1), TS(TLOG_TIME_T_MIN, 0));
     TEST(cap_add, tlog_timespec_max, TS(0, 1), tlog_timespec_max);
     TEST(fp_add, tlog_timespec_max, TS(0, 1), max_fp);
 
-    TEST(add, tlog_timespec_min, TS(0, -1), TS(LONG_MAX, 0));
+    TEST(add, tlog_timespec_min, TS(0, -1), TS(TLOG_TIME_T_MAX, 0));
     TEST(cap_add, tlog_timespec_min, TS(0, -1), tlog_timespec_min);
     TEST(fp_add, tlog_timespec_min, TS(0, -1), min_fp);
 
@@ -296,8 +296,8 @@ main(void)
 
     TEST(fp_div, tlog_timespec_max, tlog_timespec_max, TS(1, 0));
     TEST(fp_div, tlog_timespec_min, tlog_timespec_min, TS(1, 0));
-    TEST(fp_div, tlog_timespec_max, TS(LONG_MIN+1, -TLOG_TIMESPEC_NSEC_PER_SEC + 1), TS(-1, 0));
-    TEST(fp_div, TS(LONG_MIN+1, -TLOG_TIMESPEC_NSEC_PER_SEC + 1), tlog_timespec_max, TS(-1, 0));
+    TEST(fp_div, tlog_timespec_max, TS(TLOG_TIME_T_MIN+1, -TLOG_TIMESPEC_NSEC_PER_SEC + 1), TS(-1, 0));
+    TEST(fp_div, TS(TLOG_TIME_T_MIN+1, -TLOG_TIMESPEC_NSEC_PER_SEC + 1), tlog_timespec_max, TS(-1, 0));
 
     TEST(fp_div, tlog_timespec_max, TS(1, 0), max_fp);
     TEST(fp_div, tlog_timespec_min, TS(1, 0), min_fp);

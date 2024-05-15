@@ -32,6 +32,11 @@
 #include <stdbool.h>
 #include <assert.h>
 
+#define TLOG_TIME_T_MIN \
+	(sizeof(time_t) == sizeof(long) ? LONG_MIN : LLONG_MIN)
+#define TLOG_TIME_T_MAX \
+	(sizeof(time_t) == sizeof(long) ? LONG_MAX : LLONG_MAX)
+
 /** Zero timespec initializer */
 #define TLOG_TIMESPEC_ZERO  ((struct timespec){0, 0})
 
@@ -46,11 +51,11 @@ extern const struct timespec tlog_timespec_max;
 
 /** Maximum value a double-precision floating point timespec can be */
 #define TLOG_TIMESPEC_FP_MAX \
-            nextafter((double)LONG_MAX + (double)0.999999999, 0)
+            nextafter((double)TLOG_TIME_T_MAX + (double)0.999999999, 0)
 
 /** Minimum value a double-precision floating point timespec can be */
 #define TLOG_TIMESPEC_FP_MIN \
-            nextafter((double)LONG_MIN - (double)0.999999999, 0)
+            nextafter((double)TLOG_TIME_T_MIN - (double)0.999999999, 0)
 
 /** Nanoseconds per second */
 #define TLOG_TIMESPEC_NSEC_PER_SEC  1000000000

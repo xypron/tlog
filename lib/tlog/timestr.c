@@ -66,7 +66,7 @@ tlog_timestr_parser_feed(struct tlog_timestr_parser *parser, char c)
                     comp = 0;
                 } else {
                     comp = parser->comp_list[parser->comp_num - 1];
-                    if (comp > (LONG_MAX - digit) / 10) {
+                    if (comp > (TLOG_TIME_T_MAX - digit) / 10) {
                         return false;
                     }
                 }
@@ -112,11 +112,11 @@ tlog_timestr_parser_yield(const struct tlog_timestr_parser *parser,
     for (i = 0; i < parser->comp_num; i++) {
         mul = mul_list[parser->comp_num - 1 - i];
         comp = parser->comp_list[i];
-        if (comp > LONG_MAX / mul) {
+        if (comp > TLOG_TIME_T_MAX / mul) {
             return false;
         }
         comp *= mul;
-        if (comp > LONG_MAX - ts.tv_sec) {
+        if (comp > TLOG_TIME_T_MAX - ts.tv_sec) {
             return false;
         }
         ts.tv_sec += comp;
